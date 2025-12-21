@@ -14,8 +14,8 @@ message GetCourseResponse {
   string description = 3;
 }
 
-// Определение gRPC-сервиса
+// Определение gRPC-сервиса 'CourseService'
 service CourseService {
-  // Определение метода gRPC-сервиса
+  // Определение метода 'GetCourse'
   rpc GetCourse (GetCourseRequest) returns (GetCourseResponse);
 }

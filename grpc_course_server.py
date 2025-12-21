@@ -6,8 +6,9 @@ import course_service_pb2_grpc
 
 
 class CourseServiceServicer(course_service_pb2_grpc.CourseServiceServicer):
-    """
-    Реализация методов gRPC-сервиса UserService
+    """Реализация методов gRPC-сервиса CourseService
+
+    ...
     """
 
     def GetCourse(self, request, context):
