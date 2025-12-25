@@ -6,3 +6,5 @@ __pycache__/
 # Environments
 .env
 venv
+
+/pydantic_basics.py
