@@ -9,7 +9,7 @@ class PrivateUsersClient(APIClient):
     Клиент для работы с приватными методами /api/v1/users (требуется авторизация).
     """
 
-    def _get_user_me_api(self) -> Response:
+    def get_user_me_api(self) -> Response:
         """
         Выполняет HTTP-запрос на получение текущего пользователя.
 
@@ -18,7 +18,7 @@ class PrivateUsersClient(APIClient):
         """
         return self.get(url="/api/v1/users/me")
 
-    def _get_user_api(self, user_id: str) -> Response:
+    def get_user_api(self, user_id: str) -> Response:
         """
         Выполняет HTTP-запрос на получение пользователя по идентификатору.
 
@@ -30,7 +30,7 @@ class PrivateUsersClient(APIClient):
         """
         return self.get(url=f"/api/v1/users/{user_id}")
 
-    def _update_user_api(self, user_id: str, request: UpdateUserRequestSchema) -> Response:
+    def update_user_api(self, user_id: str, request: UpdateUserRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на обновление пользователя по идентификатору.
 
@@ -46,7 +46,7 @@ class PrivateUsersClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _delete_user_api(self, user_id: str) -> Response:
+    def delete_user_api(self, user_id: str) -> Response:
         """
         Выполняет HTTP-запрос на удаление пользователя по идентификатору.
 
@@ -68,7 +68,7 @@ class PrivateUsersClient(APIClient):
         Returns:
             Схема ответа на получение данных пользователя.
         """
-        response = self._get_user_api(user_id)
+        response = self.get_user_api(user_id)
         return GetUserResponseSchema.model_validate_json(response.text)
 
 

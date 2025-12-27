@@ -10,7 +10,7 @@ class AuthenticationClient(APIClient):
     Клиент для работы с /api/v1/authentication
     """
 
-    def _login_api(self, request: LoginRequestSchema) -> Response:
+    def login_api(self, request: LoginRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос аутентификации пользователя.
 
@@ -25,7 +25,7 @@ class AuthenticationClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _refresh_api(self, request: RefreshRequestSchema) -> Response:
+    def refresh_api(self, request: RefreshRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос обновления токена авторизации.
 
@@ -50,7 +50,7 @@ class AuthenticationClient(APIClient):
         Returns:
             Схема ответа на аутентификацию.
         """
-        response = self._login_api(request)
+        response = self.login_api(request)
         return LoginResponseSchema.model_validate_json(response.text)
 
 

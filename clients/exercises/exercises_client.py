@@ -17,7 +17,7 @@ class ExercisesClient(APIClient):
     Клиент для работы c /api/v1/exercises
     """
 
-    def _get_exercises_api(self, query: GetExercisesQuerySchema) -> Response:
+    def get_exercises_api(self, query: GetExercisesQuerySchema) -> Response:
         """
         Выполняет HTTP-запрос на получение списка заданий для курса.
 
@@ -32,7 +32,7 @@ class ExercisesClient(APIClient):
             params=query.model_dump(by_alias=True)
         )
 
-    def _create_exercise_api(self, request: CreateExerciseRequestSchema) -> Response:
+    def create_exercise_api(self, request: CreateExerciseRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на создание задания.
 
@@ -47,7 +47,7 @@ class ExercisesClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _get_exercise_api(self, exercise_id: str) -> Response:
+    def get_exercise_api(self, exercise_id: str) -> Response:
         """
         Выполняет HTTP-запрос на получение задания.
 
@@ -59,7 +59,7 @@ class ExercisesClient(APIClient):
         """
         return self.get(url=f"/api/v1/exercise/{exercise_id}")
 
-    def _update_exercise_api(self, exercise_id: str, request: UpdateExerciseRequestSchema) -> Response:
+    def update_exercise_api(self, exercise_id: str, request: UpdateExerciseRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на обновление задания.
 
@@ -75,7 +75,7 @@ class ExercisesClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _delete_exercise_api(self, exercise_id: str) -> Response:
+    def delete_exercise_api(self, exercise_id: str) -> Response:
         """
         Выполняет HTTP-запрос на удаление задания.
 
@@ -97,7 +97,7 @@ class ExercisesClient(APIClient):
         Returns:
             Схема ответа на получение задания.
         """
-        response = self._get_exercise_api(exercise_id)
+        response = self.get_exercise_api(exercise_id)
         return GetExerciseResponseSchema.model_validate_json(response.text)
 
     def get_exercises(self, query: GetExercisesQuerySchema) -> GetExercisesResponseSchema:
@@ -110,7 +110,7 @@ class ExercisesClient(APIClient):
         Returns:
             Схема ответа на получение списка заданий для курса.
         """
-        response = self._get_exercises_api(query)
+        response = self.get_exercises_api(query)
         return GetExercisesResponseSchema.model_validate_json(response.text)
 
     def create_exercise(self, request: CreateExerciseRequestSchema) -> CreateExerciseResponseSchema:
@@ -123,7 +123,7 @@ class ExercisesClient(APIClient):
         Returns:
             Схема ответа на создание задания.
         """
-        response = self._create_exercise_api(request)
+        response = self.create_exercise_api(request)
         return CreateExerciseResponseSchema.model_validate_json(response.text)
 
     def update_exercise(self, exercise_id: str, request: UpdateExerciseRequestSchema) -> UpdateExerciseResponseSchema:
@@ -137,7 +137,7 @@ class ExercisesClient(APIClient):
         Returns:
             Схема ответа на обновление задания.
         """
-        response = self._update_exercise_api(exercise_id, request)
+        response = self.update_exercise_api(exercise_id, request)
         return UpdateExerciseResponseSchema.model_validate_json(response.text)
 
     def delete_exercise(self, exercise_id: str) -> None:
@@ -147,7 +147,7 @@ class ExercisesClient(APIClient):
         Args:
             exercise_id: Идентификатор задания.
         """
-        response = self._delete_exercise_api(exercise_id)
+        response = self.delete_exercise_api(exercise_id)
         return response.json()
 
 def get_exercises_client(user: AuthenticationUserSchema) -> ExercisesClient:

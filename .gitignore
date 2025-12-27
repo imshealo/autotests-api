@@ -8,4 +8,3 @@ __pycache__/
 venv
 
 /pydantic_json_schema_create_user.py
-/pydantic_json_schema_get_user.py

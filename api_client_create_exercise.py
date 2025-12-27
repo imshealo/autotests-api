@@ -13,7 +13,7 @@ from clients.exercises.exercises_schema import CreateExerciseRequestSchema
 # -----------Абсолютный путь-------------
 root = Path(__file__).parent
 
-# ---------Создаем пользователя-----------
+# ---------Создание пользователя-----------
 public_users_client = get_public_users_client()
 create_user_request = CreateUserRequestSchema(
     email=get_random_email(),

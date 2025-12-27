@@ -17,7 +17,7 @@ class CoursesClient(APIClient):
     Клиент для работы с /api/v1/courses
     """
 
-    def _get_courses_api(self, query: GetCoursesQuerySchema) -> Response:
+    def get_courses_api(self, query: GetCoursesQuerySchema) -> Response:
         """
         Выполняет HTTP-запрос на получение списка курсов.
 
@@ -32,7 +32,7 @@ class CoursesClient(APIClient):
             params=query.model_dump(by_alias=True)
         )
 
-    def _get_course_api(self, course_id: str) -> Response:
+    def get_course_api(self, course_id: str) -> Response:
         """
         Выполняет HTTP-запрос на получение курса.
 
@@ -44,7 +44,7 @@ class CoursesClient(APIClient):
         """
         return self.get(url=f"/api/v1/courses/{course_id}")
 
-    def _create_course_api(self, request: CreateCourseRequestSchema) -> Response:
+    def create_course_api(self, request: CreateCourseRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на создание курса.
 
@@ -59,7 +59,7 @@ class CoursesClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _update_course_api(self, course_id: str, request: UpdateCourseRequestSchema) -> Response:
+    def update_course_api(self, course_id: str, request: UpdateCourseRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на обновление курса.
 
@@ -75,7 +75,7 @@ class CoursesClient(APIClient):
             json=request.model_dump(by_alias=True)
         )
 
-    def _delete_course_api(self, course_id: str) -> Response:
+    def delete_course_api(self, course_id: str) -> Response:
         """
         Выполняет HTTP-запрос на удаление курса.
 
@@ -97,7 +97,7 @@ class CoursesClient(APIClient):
         Returns:
             Схема ответа на получение списка курсов.
         """
-        response = self._get_courses_api(query)
+        response = self.get_courses_api(query)
         return GetCoursesResponseSchema.model_validate_json(response.text)
 
 
@@ -111,7 +111,7 @@ class CoursesClient(APIClient):
         Returns:
             Схема ответа на получение курса.
         """
-        response = self._get_course_api(course_id)
+        response = self.get_course_api(course_id)
         return GetCourseResponseSchema.model_validate_json(response.text)
 
     def create_course(self, request: CreateCourseRequestSchema) -> CreateCourseResponseSchema:
@@ -124,7 +124,7 @@ class CoursesClient(APIClient):
         Returns:
             Схема ответа на создание курса.
         """
-        response = self._create_course_api(request)
+        response = self.create_course_api(request)
         return CreateCourseResponseSchema.model_validate_json(response.text)
 
     def update_course(self, course_id: str, request: UpdateCourseRequestSchema) -> UpdateCourseResponseSchema:
@@ -138,7 +138,7 @@ class CoursesClient(APIClient):
         Returns:
             Схема ответа на обновление курса.
         """
-        response = self._update_course_api(course_id, request)
+        response = self.update_course_api(course_id, request)
         return UpdateCourseResponseSchema.model_validate_json(response.text)
 
     def delete_course(self, course_id: str) -> None:
@@ -148,7 +148,7 @@ class CoursesClient(APIClient):
         Args:
             course_id: Идентификатор курса.
         """
-        response = self._delete_course_api(course_id)
+        response = self.delete_course_api(course_id)
         return response.json()
 
 def get_courses_client(user: AuthenticationUserSchema) -> CoursesClient:

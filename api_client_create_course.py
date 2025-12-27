@@ -6,15 +6,13 @@ from clients.private_http_builder import AuthenticationUserSchema
 from clients.files.files_client import get_files_client
 from clients.courses.courses_client import get_courses_client
 from clients.files.files_schema import CreateFileRequestSchema
-
-
 from clients.courses.courses_schema import CreateCourseRequestSchema
 
 
 # -----------Абсолютный путь-------------
 root = Path(__file__).parent
 
-# ---------Создаем пользователя-----------
+# ---------Создание пользователя-----------
 public_users_client = get_public_users_client()
 create_user_request = CreateUserRequestSchema(
     email=get_random_email(),

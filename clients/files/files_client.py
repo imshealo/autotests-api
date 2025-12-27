@@ -9,7 +9,7 @@ class FilesClient(APIClient):
     Клиент для работы с /api/v1/files
     """
 
-    def _get_file_api(self, file_id: str) -> Response:
+    def get_file_api(self, file_id: str) -> Response:
         """
         Выполняет HTTP-запрос на получение файла.
 
@@ -21,7 +21,7 @@ class FilesClient(APIClient):
         """
         return self.get(url=f"/api/v1/files/{file_id}")
 
-    def _create_file_api(self, request: CreateFileRequestSchema) -> Response:
+    def create_file_api(self, request: CreateFileRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на создание файла.
 
@@ -37,7 +37,7 @@ class FilesClient(APIClient):
             files={"upload_file": open(request.upload_file, 'rb')}
         )
 
-    def _delete_file_api(self, file_id: str) -> Response:
+    def delete_file_api(self, file_id: str) -> Response:
         """
         Выполняет HTTP-запрос на удаление файла.
 
@@ -59,7 +59,7 @@ class FilesClient(APIClient):
         Returns:
             Схема ответа на создание файла.
         """
-        response = self._create_file_api(request)
+        response = self.create_file_api(request)
         return CreateFileResponseSchema.model_validate_json(response.text)
 
 

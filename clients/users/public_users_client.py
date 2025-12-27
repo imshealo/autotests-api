@@ -9,7 +9,7 @@ class PublicUsersClient(APIClient):
     Клиент для работы с публичными методами /api/v1/users (без авторизации).
     """
 
-    def _create_user_api(self, request: CreateUserRequestSchema) -> Response:
+    def create_user_api(self, request: CreateUserRequestSchema) -> Response:
         """
         Выполняет HTTP-запрос на создание пользователя.
 
@@ -34,7 +34,7 @@ class PublicUsersClient(APIClient):
         Returns:
             Схема ответа на создание пользователя.
         """
-        response = self._create_user_api(request)
+        response = self.create_user_api(request)
         return CreateUserResponseSchema.model_validate_json(response.text)
 
 def get_public_users_client() -> PublicUsersClient:
