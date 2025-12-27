@@ -3,9 +3,10 @@ from httpx import Client
 
 def get_public_http_client() -> Client:
     """
-    Функция создаёт экземпляр httpx.Client с базовыми настройками.
+    Создаёт HTTP-клиент с базовыми настройками.
 
-    :return: Готовый к использованию объект httpx.Client.
+    Returns:
+        Готовый к использованию HTTP-клиент с базовыми настройками.
     """
     return Client(
         timeout=1,

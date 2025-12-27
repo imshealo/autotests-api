@@ -8,3 +8,4 @@ __pycache__/
 venv
 
 /pydantic_basics.py
+/api_client_get_user.py

@@ -1,38 +1,8 @@
-from typing import TypedDict
 from httpx import Response
 from clients.api_client import APIClient
+from clients.authentication.authentication_schema import LoginRequestSchema, LoginResponseSchema, RefreshRequestSchema
 from clients.public_http_builder import get_public_http_client
 
-
-class Token(TypedDict):
-    """
-    Описание структуры аутентификационных токенов.
-    """
-    tokenType: str
-    accessToken: str
-    refreshToken: str
-
-
-class LoginRequestDict(TypedDict):
-    """
-    Описание структуры запроса на аутентификацию.
-    """
-    email: str
-    password: str
-
-
-class LoginResponseDict(TypedDict):
-    """
-    Описание структуры ответа аутентификации.
-    """
-    token: Token
-
-
-class RefreshRequestDict(TypedDict):
-    """
-    Описание структуры запроса для обновления токена.
-    """
-    refreshToken: str
 
 
 class AuthenticationClient(APIClient):
@@ -40,45 +10,55 @@ class AuthenticationClient(APIClient):
     Клиент для работы с /api/v1/authentication
     """
 
-    def login_api(self, request: LoginRequestDict) -> Response:
+    def _login_api(self, request: LoginRequestSchema) -> Response:
         """
-        Метод выполняет аутентификацию пользователя.
+        Выполняет HTTP-запрос аутентификации пользователя.
 
-        :param request: Словарь LoginRequestDict
-        :return: Объект httpx.Response
+        Args:
+            request: Схема запроса на аутентификацию.
+
+        Returns:
+            HTTP-ответ от сервера.
         """
         return self.post(
             url="/api/v1/authentication/login",
-            json=request
+            json=request.model_dump(by_alias=True)
         )
 
-    def refresh_api(self, request: RefreshRequestDict) -> Response:
+    def _refresh_api(self, request: RefreshRequestSchema) -> Response:
         """
-        Метод обновляет токен авторизации.
+        Выполняет HTTP-запрос обновления токена авторизации.
 
-        :param request: Словарь RefreshRequestDict
-        :return: Объект httpx.Response
+        Args:
+            request: Схема запроса на обновление токена.
+
+        Returns:
+            HTTP-ответ от сервера.
         """
         return self.post(
             url="/api/v1/authentication/refresh",
-            json=request
+            json=request.model_dump(by_alias=True)
         )
 
-    def login(self, request: LoginRequestDict) -> LoginResponseDict:
+    def login(self, request: LoginRequestSchema) -> LoginResponseSchema:
         """
-        Метод обертка над login_api для возврата структурированных данных.
+        Выполняет аутентификацию пользователя и возвращает структурированный ответ.
 
-        :param request: Словарь LoginRequestDict
-        :return: Словарь LoginResponseDict
+        Args:
+            request: Схема запроса на аутентификацию.
+
+        Returns:
+            Схема ответа на аутентификацию.
         """
-        response = self.login_api(request)
-        return response.json()
+        response = self._login_api(request)
+        return LoginResponseSchema.model_validate_json(response.text)
 
 
 def get_authentication_client() -> AuthenticationClient:
     """
     Функция создаёт экземпляр AuthenticationClient с уже настроенным HTTP-клиентом.
 
-    :return: Готовый к использованию AuthenticationClient.
+    Returns:
+        Готовый к использованию AuthenticationClient.
     """
     return AuthenticationClient(client=get_public_http_client())
