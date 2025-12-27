@@ -7,5 +7,5 @@ __pycache__/
 .env
 venv
 
-/pydantic_basics.py
-/api_client_get_user.py
+/pydantic_json_schema_create_user.py
+/pydantic_json_schema_get_user.py
