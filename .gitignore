@@ -8,3 +8,4 @@ __pycache__/
 venv
 
 /pydantic_json_schema_create_user.py
+/tests/test_users.py
