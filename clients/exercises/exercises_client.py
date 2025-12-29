@@ -71,7 +71,7 @@ class ExercisesClient(APIClient):
             HTTP-ответ от сервера.
         """
         return self.patch(
-            url=f"/api/v1/exercise/{exercise_id}",
+            url=f"/api/v1/exercises/{exercise_id}",
             json=request.model_dump(by_alias=True)
         )
 
