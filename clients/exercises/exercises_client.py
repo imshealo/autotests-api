@@ -85,7 +85,7 @@ class ExercisesClient(APIClient):
         Returns:
             HTTP-ответ от сервера.
         """
-        return self.delete(url=f"/api/v1/exercise/{exercise_id}")
+        return self.delete(url=f"/api/v1/exercises/{exercise_id}")
 
     def get_exercise(self, exercise_id: str) -> GetExerciseResponseSchema:
         """
