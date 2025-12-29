@@ -18,6 +18,8 @@ class CourseSchema(BaseModel):
 
 class GetCoursesQuerySchema(BaseModel):
     """Схема параметров запроса на получение списка курсов."""
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
 
 

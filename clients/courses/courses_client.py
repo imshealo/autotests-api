@@ -72,7 +72,7 @@ class CoursesClient(APIClient):
         """
         return self.patch(
             url=f"/api/v1/courses/{course_id}",
-            json=request.model_dump(by_alias=True)
+            json=request.model_dump(by_alias=True, exclude_none=True)
         )
 
     def delete_course_api(self, course_id: str) -> Response:
