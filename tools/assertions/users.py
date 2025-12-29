@@ -26,7 +26,7 @@ def assert_create_user_response(request: CreateUserRequestSchema, response: Crea
 
 def assert_user(actual: UserSchema, expected: UserSchema):
     """
-    Проверяет корректность данных пользователя.
+    Проверяет, что фактические данные задания соответствуют ожидаемым.
 
     Args:
         actual: Фактические данные пользователя.
@@ -44,7 +44,7 @@ def assert_user(actual: UserSchema, expected: UserSchema):
 
 def assert_get_user_response(get_user_response: GetUserResponseSchema, create_user_response: CreateUserResponseSchema):
     """
-    Проверяет корректность данных пользователя при получении и создании пользователя.
+    Проверяет, что ответ на получение пользователя соответствует ответу на создание пользователя.
 
     Args:
         get_user_response: Ответ API на запрос пользователя.

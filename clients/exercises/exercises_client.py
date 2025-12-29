@@ -57,7 +57,7 @@ class ExercisesClient(APIClient):
         Returns:
             HTTP-ответ от сервера.
         """
-        return self.get(url=f"/api/v1/exercise/{exercise_id}")
+        return self.get(url=f"/api/v1/exercises/{exercise_id}")
 
     def update_exercise_api(self, exercise_id: str, request: UpdateExerciseRequestSchema) -> Response:
         """
